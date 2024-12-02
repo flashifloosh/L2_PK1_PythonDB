@@ -30,4 +30,4 @@
 - **KürzelFach**
 - Fach
 
-> see [script.sql](https://github.com/flashifloosh/L2_PK1/blob/main/script.sql) for more information
+> see [script.sql](https://github.com/flashifloosh/L2_PK1_PythonDB/blob/main/script.sql) for more information

@@ -5,13 +5,12 @@ class database:
     def __init__(self):
         self.conn = db.connect('data.db')
         self.cursor = self.conn.cursor()
+        self.create_db()
 
-    def create_table(self):
-        if os.path.exists('data.db'):
-            self.cursor.execute('''
-                CREATE TABLE IF NOT EXISTS student(
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    fname TEXT,
-                    lname TEXT,
-                    class VARCHAR(2),
-                )
+
+    def create_db(self):
+        with open('script.sql', 'r') as f:
+            self.cursor.executescript(f.read())
+            self.conn.commit()
+            self.conn.close()
+

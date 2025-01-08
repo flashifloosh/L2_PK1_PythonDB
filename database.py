@@ -43,14 +43,13 @@ class Database:
     @classmethod
     def student_login(cls, email, password):
         cls.connect()
-        # encrypt password tp sha256 and compare with db
-
-        hashedpassword = hashlib.sha256(password).hexdigest()
-        cls.cursor.execute('SELECT * FROM student WHERE email = ? AND secret = ?', (email, hashedpassword))
+        # TODO encrypt password to sha256 and compare
+        cls.cursor.execute('SELECT * FROM student WHERE email = ? AND secret = ?', (email, password))
         if cls.cursor.fetchone():
-            print('Login successful')
+            cls.close()
             return True
         else:
+            cls.close()
             return False
 
     @classmethod

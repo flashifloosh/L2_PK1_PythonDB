@@ -36,7 +36,10 @@ class StudentLogin:
             if event == 'login':
                 print('Login button clicked')
                 self.window.close()
-                Database().student_login(values['email'], values['password'])
+                if Database().student_login(values['email'], values['password']):
+                    print('Login successful')
+                else:
+                    print('Login failed')
                 break
             if event == sg.WIN_CLOSED:
                 break

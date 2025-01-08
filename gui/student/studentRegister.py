@@ -42,7 +42,7 @@ class StudentRegister:
             event, values = self.window.read()
             if event == 'back':
                 self.window.close()
-                from studentStartpage import StudentStartpage
+                from gui.student.studentStartpage import StudentStartpage
                 StudentStartpage()
                 break
             if event == 'register':

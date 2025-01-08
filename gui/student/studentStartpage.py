@@ -22,12 +22,18 @@ class StudentStartpage:
             event, values = self.window.read()
             if event == 'back':
                 self.window.close()
-                from gui.startpage import startpage
-                startpage()
+                from gui.startpage import Startpage
+                Startpage()
                 break
             if event == 'register':
-                print('Register button clicked')
+                self.window.close()
+                from gui.student.studentRegister import StudentRegister
+                StudentRegister()
+                break
             if event == 'login':
-                print('Login button clicked')
+                self.window.close()
+                from gui.student.studentLogin import StudentLogin
+                StudentLogin()
+                break
             if event == sg.WIN_CLOSED:
                 break

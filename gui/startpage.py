@@ -1,6 +1,6 @@
 import FreeSimpleGUI as sg
 
-from gui.student.studentStartpage import studentStartpage
+from gui.student.studentStartpage import StudentStartpage
 
 
 class Startpage:
@@ -20,7 +20,7 @@ class Startpage:
             event, values = self.window.read()
             if event == 'student':
                 self.window.close()
-                studentStartpage()
+                StudentStartpage()
                 break
             if event == 'teacher':
                 print('Exit button clicked')

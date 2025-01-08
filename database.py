@@ -1,3 +1,4 @@
+import hashlib
 import os.path
 import sqlite3 as db
 
@@ -10,17 +11,52 @@ class Database:
         self.conn = None
         self.create_db()
 
-    def create_db(self):
+    @classmethod
+    def create_db(cls):
         if not os.path.exists('data.db'):
+            cls.connect()
             with open('script.sql', 'r') as f:
-                self.cursor.executescript(f.read())
-                self.conn.commit()
-                self.conn.close()
+                cls.cursor.executescript(f.read())
+                cls.conn.commit()
+            cls.close()
 
-    def connect(self):
-        self.conn = db.connect('data.db')
-        self.cursor = self.conn.cursor()
+    @classmethod
+    def connect(cls):
+        cls.conn = db.connect('data.db')
+        cls.cursor = cls.conn.cursor()
 
-    def close(self):
-        self.conn.close()
+    @classmethod
+    def close(cls):
+        cls.conn.close()
 
+    @classmethod
+    def student_register(cls, fname, lname, email, password, schoolclass):
+        # encrypt password to sha256
+        cls.connect()
+        schoolclass_value = schoolclass[0] if isinstance(schoolclass, tuple) else schoolclass
+        cls.cursor.execute('INSERT INTO student (fname, lname, email, secret, class) VALUES (?, ?, ?, ?, ?)',
+                           (fname, lname, email, password, schoolclass_value))
+        cls.conn.commit()
+        cls.close()
+        print('Registration successful')
+
+    @classmethod
+    def student_login(cls, email, password):
+        cls.connect()
+        # encrypt password tp sha256 and compare with db
+
+        hashedpassword = hashlib.sha256(password).hexdigest()
+        cls.cursor.execute('SELECT * FROM student WHERE email = ? AND secret = ?', (email, hashedpassword))
+        if cls.cursor.fetchone():
+            print('Login successful')
+            return True
+        else:
+            return False
+
+    @classmethod
+    def getSchoolclasses(cls):
+        cls.connect()
+        cls.cursor.execute('SELECT classname FROM class')
+        classes = cls.cursor.fetchall()
+        cls.close()
+        return classes

@@ -1,11 +1,9 @@
-from database import database
-from gui.guiUtil import guiUtil
+from database import Database
+from gui.guiUtil import GuiUtil
 
 
 # https://www.pysimplegui.com/
 import FreeSimpleGUI as sg
 
 
-db = database()
-
-gui = guiUtil()
+gui = GuiUtil()

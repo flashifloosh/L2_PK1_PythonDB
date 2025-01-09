@@ -19,7 +19,8 @@ class StudentStartpage:
             ]
         ]
 
-    def handle_event(self, event, values):
+    @staticmethod
+    def handle_event(event, values):
         if event == 'back':
             from gui.Startpage import Startpage
             WindowManager.update(Startpage().get_layout(), Startpage.handle_event)

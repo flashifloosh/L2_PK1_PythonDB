@@ -3,11 +3,7 @@ import FreeSimpleGUI as sg
 from gui.WindowManager import WindowManager
 
 
-
 class StudentStartpage:
-
-    def __init__(self):
-        WindowManager.handle_event = handle_event
 
     @classmethod
     def get_layout(cls):
@@ -26,7 +22,7 @@ class StudentStartpage:
     def handle_event(self, event, values):
         if event == 'back':
             from gui.Startpage import Startpage
-            WindowManager.update(Startpage().get_layout())
+            WindowManager.update(Startpage().get_layout(), Startpage.handle_event)
     #  elif event == 'register':
     #  WindowManager.update_layout(StudentRegister().get_layout())
     #   elif event == 'login':

@@ -6,9 +6,6 @@ from gui.WindowManager import WindowManager
 
 class Startpage:
 
-    def __init__(self):
-        WindowManager.handle_event = self.handle_event
-
     @classmethod
     def get_layout(cls):
         return [
@@ -24,8 +21,7 @@ class Startpage:
     @staticmethod
     def handle_event(event, values):
         if event == 'student':
-            WindowManager.update(StudentStartpage().get_layout())
+            WindowManager.update(StudentStartpage().get_layout(), StudentStartpage.handle_event)
             print("test")
         elif event == 'teacher':
             print('Teacher button clicked')
-

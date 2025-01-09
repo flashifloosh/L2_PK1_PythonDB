@@ -1,4 +1,5 @@
-from database import Database
+from Database import Database
+from gui.WindowManager import WindowManager
 
 import FreeSimpleGUI as sg
 
@@ -36,13 +37,14 @@ class StudentRegister:
                 sg.Button('Registrieren', key='register', size=(10, 1))
             ]
         ]
-        self.window = sg.Window('Schüler Registrierung', self.layout, size=(300, 200), element_justification='c',
+        self.window = sg.Window('Schüler Registrierung', self.layout, size=(300, 200), location=WindowManager.last_location, element_justification='c',
                                 finalize=True)
         while True:
             event, values = self.window.read()
+            WindowManager.last_location = self.window.CurrentLocation()
             if event == 'back':
                 self.window.close()
-                from gui.student.studentStartpage import StudentStartpage
+                from gui.student.StudentStartpage import StudentStartpage
                 StudentStartpage()
                 break
             if event == 'register':

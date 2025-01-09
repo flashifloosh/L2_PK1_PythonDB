@@ -1,5 +1,5 @@
-from gui.student.studentStartpage import StudentStartpage
-from database import Database
+from gui.student.StudentStartpage import StudentStartpage
+from Database import Database
 
 import FreeSimpleGUI as sg
 

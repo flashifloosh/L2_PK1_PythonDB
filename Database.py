@@ -34,17 +34,28 @@ class Database:
         # encrypt password to sha256
         cls.connect()
         schoolclass_value = schoolclass[0] if isinstance(schoolclass, tuple) else schoolclass
+        if cls.cursor.execute('SELECT * FROM student WHERE email = ?', (email,)).fetchone():
+            cls.close()
+            raise Exception("Diese E-Mail Adresse ist bereits registriert")
+        elif fname == '' or lname == '' or email == '' or password == '' or schoolclass == '':
+            cls.close()
+            raise Exception("Bitte füllen Sie alle Felder aus")
+        elif len(password) < 8:
+            cls.close()
+            raise Exception("Das Passwort muss mindestens 8 Zeichen lang sein")
+        hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
         cls.cursor.execute('INSERT INTO student (fname, lname, email, secret, class) VALUES (?, ?, ?, ?, ?)',
-                           (fname, lname, email, password, schoolclass_value))
+                           (fname, lname, email, hashed_pw, schoolclass_value))
         cls.conn.commit()
         cls.close()
-        print('Registration successful')
+        return True
 
     @classmethod
     def student_login(cls, email, password):
         cls.connect()
         # TODO encrypt password to sha256 and compare
-        cls.cursor.execute('SELECT * FROM student WHERE email = ? AND secret = ?', (email, password))
+        hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        cls.cursor.execute('SELECT * FROM student WHERE email = ? AND secret = ?', (email, hashed_pw))
         if cls.cursor.fetchone():
             cls.close()
             return True
@@ -59,3 +70,10 @@ class Database:
         classes = cls.cursor.fetchall()
         cls.close()
         return classes
+
+    def get_student(self, email):
+        self.connect()
+        self.cursor.execute('SELECT * FROM student WHERE email = ?', (email,))
+        student = self.cursor.fetchone()
+        self.close()
+        return student

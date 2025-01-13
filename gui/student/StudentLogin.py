@@ -1,4 +1,5 @@
-from gui.student.StudentStartpage import StudentStartpage
+from gui.WindowManager import WindowManager
+from gui.student.StudentPreLogin import StudentPreLogin
 from Database import Database
 
 import FreeSimpleGUI as sg
@@ -6,8 +7,9 @@ import FreeSimpleGUI as sg
 
 class StudentLogin:
 
-    def __init__(self):
-        self.layout = [
+    @classmethod
+    def get_layout(cls):
+        return [
             [
                 sg.Button(key='back', image_filename='./images/back.png', image_subsample=30, border_width=0,
                           button_color=('white', sg.theme_background_color())),
@@ -25,21 +27,18 @@ class StudentLogin:
                 sg.Button('Anmelden', key='login', size=(10, 1))
             ]
         ]
-        self.window = sg.Window('Schüler Anmeldung', self.layout, size=(300, 150), element_justification='c',
-                                finalize=True)
-        while True:
-            event, values = self.window.read()
-            if event == 'back':
-                self.window.close()
-                StudentStartpage()
-                break
-            if event == 'login':
-                print('Login button clicked')
-                self.window.close()
-                if Database().student_login(values['email'], values['password']):
-                    print('Login successful')
-                else:
-                    print('Login failed')
-                break
-            if event == sg.WIN_CLOSED:
-                break
+
+    @staticmethod
+    def event_handler(event, values):
+        if event == 'back':
+            from gui.student.StudentPreLogin import StudentPreLogin
+            WindowManager.update(StudentPreLogin().get_layout(), StudentPreLogin.event_handler)
+        elif event == 'login':
+            if Database().student_login(values['email'], values['password']):
+                print('Login successful')
+                from gui.student.StudentStartpage import StudentStartpage
+                WindowManager.update(StudentStartpage().get_layout(), StudentStartpage.event_handler)
+            else:
+                print('Login failed')
+        elif event == sg.WIN_CLOSED:
+            pass

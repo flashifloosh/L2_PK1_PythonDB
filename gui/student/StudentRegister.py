@@ -1,3 +1,5 @@
+from gv import layout
+
 from Database import Database
 from gui.WindowManager import WindowManager
 
@@ -6,8 +8,9 @@ import FreeSimpleGUI as sg
 
 class StudentRegister:
 
-    def __init__(self):
-        self.layout = [
+    @staticmethod
+    def get_layout():
+        return [
             [
                 sg.Button(key='back', image_filename='./images/back.png', image_subsample=30, border_width=0,
                           button_color=('white', sg.theme_background_color())),
@@ -30,33 +33,23 @@ class StudentRegister:
                 sg.InputText(key='password', password_char='*', size=(15, 1))
             ],
             [
-                sg.Text('Klasse:', size=(15, 1)),
-                sg.DropDown(Database.getSchoolclasses(), key='schoolclass', size=(15, 1))
+                sg.Text('Klasse:', size=(15, 1), ),
+                sg.Combo(Database.getSchoolclasses(), key='schoolclass', s=(13, 1), readonly=True)
             ],
             [
                 sg.Button('Registrieren', key='register', size=(10, 1))
             ]
         ]
-        self.window = sg.Window('Schüler Registrierung', self.layout, size=(300, 200), location=WindowManager.last_location, element_justification='c',
-                                finalize=True)
-        while True:
-            event, values = self.window.read()
-            WindowManager.last_location = self.window.CurrentLocation()
-            if event == 'back':
-                self.window.close()
-                from gui.student.StudentStartpage import StudentStartpage
-                StudentStartpage()
-                break
-            if event == 'register':
-                print('Register button clicked')
-                self.window.close()
-                fname = values['first_name']
-                lname = values['last_name']
-                email = values['email']
-                password = values['password']
-                schoolclass = values['schoolclass']
 
-                Database().student_register(fname, lname, email, password, schoolclass)
-                break
-            if event == sg.WIN_CLOSED:
-                break
+    @staticmethod
+    def event_handler(event, values):
+        if event == 'back':
+            from gui.student.StudentPreLogin import StudentPreLogin
+            WindowManager.update(StudentPreLogin().get_layout(), StudentPreLogin.event_handler)
+        elif event == 'register':
+            try:
+                Database.student_register(values['first_name'], values['last_name'], values['email'], values['password'],
+                                         values['schoolclass'])
+                sg.popup_ok('Registrierung erfolgreich')
+            except Exception as e:
+                sg.popup_ok(e, location=WindowManager.last_location, title='Fehler', keep_on_top=True, modal=True)

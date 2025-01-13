@@ -17,11 +17,11 @@ class StudentLogin:
             ],
             [
                 sg.Text('E-Mail:', size=(15, 1)),
-                sg.InputText(key='email', size=(15, 1))
+                sg.InputText(key='email', size=(20, 1))
             ],
             [
                 sg.Text('Passwort:', size=(15, 1)),
-                sg.InputText(key='password', password_char='*', size=(15, 1))
+                sg.InputText(key='password', password_char='*', size=(20, 1))
             ],
             [
                 sg.Button('Anmelden', key='login', size=(10, 1))

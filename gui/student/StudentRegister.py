@@ -16,15 +16,15 @@ class StudentRegister:
             ],
             [
                 sg.Text('Vorname:', size=(15, 1)),
-                sg.InputText(key='first_name', size=(15, 1))
+                sg.InputText(key='first_name', size=(20, 1))
             ],
             [
                 sg.Text('Nachname:', size=(15, 1)),
-                sg.InputText(key='last_name', size=(15, 1))
+                sg.InputText(key='last_name', size=(20, 1))
             ],
             [
                 sg.Text('E-Mail:', size=(15, 1)),
-                sg.InputText(key='email', size=(15, 1))
+                sg.InputText(key='email', size=(20, 1))
             ],
             [
                 sg.Text('Passwort:', size=(15, 1)),

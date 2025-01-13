@@ -18,7 +18,7 @@ class WindowManager:
     def run(cls):
         from gui.Startpage import Startpage
         cls.window = sg.Window('Schulsystem', Startpage.get_layout(), size=(400, 100), location=cls.last_location,
-                               element_justification='c', resizable=True, finalize=True, disable_close=True)
+                               element_justification='c', resizable=True, finalize=True)
         cls.event_handler = Startpage.event_handler
         while True:
             event, values = cls.window.read()

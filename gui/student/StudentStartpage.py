@@ -8,8 +8,8 @@ class StudentStartpage:
     def get_layout(cls):
         return [
             [
-                sg.Button("Abmelden", key='back', image_filename='./images/back.png', image_subsample=30,
-                          border_width=0),
+                sg.Button("Abmelden", key='logout', image_subsample=30,
+                          border_width=0, size=(8, 1)),
                 sg.Text(size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
@@ -20,7 +20,7 @@ class StudentStartpage:
 
     @staticmethod
     def event_handler(event, values):
-        if event == 'back':
+        if event == 'logout':
             from gui.Startpage import Startpage
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
         elif event == 'grades':

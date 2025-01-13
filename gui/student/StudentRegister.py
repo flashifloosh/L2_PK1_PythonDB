@@ -1,5 +1,3 @@
-from gv import layout
-
 from Database import Database
 from gui.WindowManager import WindowManager
 

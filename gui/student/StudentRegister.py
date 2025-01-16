@@ -27,11 +27,15 @@ class StudentRegister:
                 sg.InputText(key='email', size=(20, 1))
             ],
             [
-                sg.Text('Passwort:', size=(15, 1)),
+                sg.Text('Passwort:', size=(20, 1)),
                 sg.InputText(key='password', password_char='*', size=(15, 1))
             ],
             [
-                sg.Text('Klasse:', size=(15, 1), ),
+                sg.Text('Passwort Bestätigen:', size=(20, 1)),
+                sg.InputText(key='confirm_password', password_char='*', size=(15, 1))
+            ],
+            [
+                sg.Text('Klasse:', size=(20, 1), ),
                 sg.Combo(Database.getSchoolclasses(), key='schoolclass', s=(13, 1), readonly=True)
             ],
             [
@@ -45,9 +49,16 @@ class StudentRegister:
             from gui.student.StudentPreLogin import StudentPreLogin
             WindowManager.update(StudentPreLogin().get_layout(), StudentPreLogin.event_handler)
         elif event == 'register':
-            try:
-                Database.student_register(values['first_name'], values['last_name'], values['email'], values['password'],
-                                         values['schoolclass'])
-                sg.popup_ok('Registrierung erfolgreich')
-            except Exception as e:
-                sg.popup_ok(e, location=WindowManager.last_location, title='Fehler', keep_on_top=True, modal=True)
+            if values['password'] == values['confirm_password']:
+                try:
+                    Database.student_register(values['first_name'], values['last_name'], values['email'],
+                                              values['password'],
+                                              values['schoolclass'])
+                    sg.popup_ok('Registrierung erfolgreich')
+                except Exception as e:
+                    sg.popup_ok(e, location=WindowManager.last_location, title='Fehler', keep_on_top=True, modal=True)
+            else:
+                sg.popup_ok('Die Passwörter stimmen nicht überein.')
+                values['password'] = ''
+                values['confirm_password'] = ''
+

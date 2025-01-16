@@ -24,6 +24,7 @@ class StudentStartpage:
             from gui.Startpage import Startpage
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
         elif event == 'grades':
-            print("Grades")
+            from gui.student.CertificatePage import CertificatePage
+            WindowManager.update(CertificatePage().get_layout(), CertificatePage.event_handler)
         elif event == sg.WIN_CLOSED:
             pass

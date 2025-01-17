@@ -7,7 +7,7 @@ class WindowManager:
     last_location = (None, None)
 
     @classmethod
-    def update(cls, new_layout, event_handler, size=(400, 100), r_loc=(0, -36)):
+    def update(cls, new_layout, event_handler, size=(400, 100), r_loc=(0, 0)):
         cls.window.close()
         cls.window = sg.Window("Schulsystem", new_layout, location=cls.last_location,
                                element_justification='c', resizable=True, finalize=True, size=size,

@@ -3,17 +3,17 @@ from gui.WindowManager import WindowManager
 
 
 class StudentStartpage:
-
     @classmethod
     def get_layout(cls):
+        student = WindowManager.get_student()
         return [
             [
                 sg.Button("Abmelden", key='logout', image_subsample=30,
                           border_width=0, size=(8, 1)),
-                sg.Text(size=(30, 1), font=('Helvetica', 15), text_color='black')
+                sg.Text(f'Hallo {student[0]}', size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
-                sg.Button('Noten', key='grades', size=(10, 1))
+                sg.Button('Noten', key='grades', size=(10, 2))
             ]
 
         ]
@@ -25,6 +25,6 @@ class StudentStartpage:
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
         elif event == 'grades':
             from gui.student.CertificatePage import CertificatePage
-            WindowManager.update(CertificatePage().get_layout(), CertificatePage.event_handler)
+            WindowManager.update(CertificatePage().get_layout(), CertificatePage.event_handler, size=(400, 300))
         elif event == sg.WIN_CLOSED:
             pass

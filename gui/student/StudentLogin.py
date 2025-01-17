@@ -34,11 +34,13 @@ class StudentLogin:
             from gui.student.StudentPreLogin import StudentPreLogin
             WindowManager.update(StudentPreLogin().get_layout(), StudentPreLogin.event_handler)
         elif event == 'login':
-            if Database().student_login(values['email'], values['password']):
-                print('Login successful')
+            try:
+                Database().student_login(values['email'], values['password'])
+                student = Database.get_student(values['email'])
+                WindowManager.set_student(student)
                 from gui.student.StudentStartpage import StudentStartpage
-                WindowManager.update(StudentStartpage().get_layout(), StudentStartpage.event_handler)
-            else:
-                print('Login failed')
-        elif event == sg.WIN_CLOSED:
-            pass
+                WindowManager.update(
+                    StudentStartpage().get_layout(),
+                    StudentStartpage.event_handler)
+            except Exception as e:
+                sg.popup_ok(e, location=WindowManager.last_location, title='', keep_on_top=True, modal=True)

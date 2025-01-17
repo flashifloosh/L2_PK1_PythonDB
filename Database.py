@@ -56,12 +56,10 @@ class Database:
         hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
         query = 'SELECT * FROM student WHERE email = ? AND secret = ?'
         cls.cursor.execute(query, (email, hashed_pw))
-        if cls.cursor.fetchone():
+        if not cls.cursor.fetchone():
             cls.close()
-            return True
-        else:
-            cls.close()
-            return False
+            raise Exception("E-Mail oder Passwort falsch")
+        cls.close()
 
     @classmethod
     def get_schoolclasses(cls):

@@ -36,7 +36,7 @@ class StudentRegister:
             ],
             [
                 sg.Text('Klasse:', size=(20, 1), ),
-                sg.Combo(Database.getSchoolclasses(), key='schoolclass', s=(13, 1), readonly=True)
+                sg.Combo(Database.get_schoolclasses(), key='schoolclass', s=(13, 1), readonly=True)
             ],
             [
                 sg.Button('Registrieren', key='register', size=(10, 1))
@@ -53,12 +53,10 @@ class StudentRegister:
                 try:
                     Database.student_register(values['first_name'], values['last_name'], values['email'],
                                               values['password'],
-                                              values['schoolclass'])
-                    sg.popup_ok('Registrierung erfolgreich')
+                                              f'{values['schoolclass']}')
+                    sg.popup_ok('Registrierung erfolgreich', location=WindowManager.last_location)
                 except Exception as e:
-                    sg.popup_ok(e, location=WindowManager.last_location, title='Fehler', keep_on_top=True, modal=True)
+                    sg.popup_ok(e, location=WindowManager.last_location, title='', keep_on_top=True, modal=True)
             else:
                 sg.popup_ok('Die Passwörter stimmen nicht überein.')
-                values['password'] = ''
-                values['confirm_password'] = ''
 

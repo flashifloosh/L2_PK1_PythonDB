@@ -11,7 +11,7 @@ class StudentPreLogin:
             [
                 sg.Button(key='back', image_filename='./images/back.png', image_subsample=30, border_width=0,
                           button_color=('white', sg.theme_background_color())),
-                sg.Text('Schüler Startseite', size=(30, 1), font=('Helvetica', 15), text_color='black')
+                sg.Text('Schüler', size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
                 sg.Button('Registrieren', key='register', size=(10, 1)),

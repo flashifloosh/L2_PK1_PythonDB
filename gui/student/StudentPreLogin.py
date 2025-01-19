@@ -29,4 +29,4 @@ class StudentPreLogin:
             WindowManager.update(StudentRegister().get_layout(), StudentRegister.event_handler, size=(400, 225))
         elif event == 'login':
             from gui.student.StudentLogin import StudentLogin
-            WindowManager.update(StudentLogin().get_layout(), StudentLogin.event_handler, size=(400, 150))
+            WindowManager.update(StudentLogin.get_layout(), StudentLogin.event_handler, size=(400, 150))

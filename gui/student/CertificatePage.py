@@ -14,7 +14,8 @@ class CertificatePage:
                 sg.Text(size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
-                # TODO Table with grades and subjects
+                sg.Table(values=[['1.0', '2.0', '1.3']],
+                         headings=['Deutsch', 'Mathe', 'Englisch'])
             ],
             [
                 sg.Button('Drucken', key='print', size=(10, 1)),

@@ -23,6 +23,7 @@ class StudentStartpage:
         if event == 'logout':
             from gui.Startpage import Startpage
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
+            WindowManager.set_student(None)
         elif event == 'grades':
             from gui.student.CertificatePage import CertificatePage
             WindowManager.update(CertificatePage().get_layout(), CertificatePage.event_handler, size=(400, 300))

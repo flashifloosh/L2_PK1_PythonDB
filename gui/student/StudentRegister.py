@@ -1,4 +1,5 @@
-from Database import Database
+from database_util.Database import Database
+from database_util.StudentUtil import StudentUtil
 from gui.WindowManager import WindowManager
 
 import FreeSimpleGUI as sg
@@ -8,6 +9,7 @@ class StudentRegister:
 
     @staticmethod
     def get_layout():
+        schoolclasses = [row[0] for row in Database.get_schoolclasses()]
         return [
             [
                 sg.Button(key='back', image_filename='./images/back.png', image_subsample=30, border_width=0,
@@ -36,7 +38,7 @@ class StudentRegister:
             ],
             [
                 sg.Text('Klasse:', size=(20, 1), ),
-                sg.Combo(Database.get_schoolclasses(), key='schoolclass', s=(13, 1), readonly=True)
+                sg.Combo(schoolclasses, key='schoolclass', s=(13, 1), readonly=True)
             ],
             [
                 sg.Button('Registrieren', key='register', size=(10, 1))
@@ -51,12 +53,11 @@ class StudentRegister:
         elif event == 'register':
             if values['password'] == values['confirm_password']:
                 try:
-                    Database.student_register(values['first_name'], values['last_name'], values['email'],
-                                              values['password'],
-                                              f'{values['schoolclass']}')
+                    StudentUtil.student_register(values['first_name'], values['last_name'], values['email'],
+                                                 values['password'],
+                                                 f'{values['schoolclass']}')
                     sg.popup_ok('Registrierung erfolgreich', location=WindowManager.last_location)
                 except Exception as e:
                     sg.popup_ok(e, location=WindowManager.last_location, title='', keep_on_top=True, modal=True)
             else:
                 sg.popup_ok('Die Passwörter stimmen nicht überein.')
-

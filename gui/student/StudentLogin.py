@@ -1,6 +1,6 @@
+from database_util.StudentUtil import StudentUtil
 from gui.WindowManager import WindowManager
-from gui.student.StudentPreLogin import StudentPreLogin
-from Database import Database
+from database_util.Database import Database
 
 import FreeSimpleGUI as sg
 
@@ -35,9 +35,7 @@ class StudentLogin:
             WindowManager.update(StudentPreLogin().get_layout(), StudentPreLogin.event_handler)
         elif event == 'login':
             try:
-                Database().student_login(values['email'], values['password'])
-                student = Database.get_student(values['email'])
-                WindowManager.set_student(student)
+                StudentUtil.student_login(values['email'], values['password'])
                 from gui.student.StudentStartpage import StudentStartpage
                 WindowManager.update(
                     StudentStartpage().get_layout(),

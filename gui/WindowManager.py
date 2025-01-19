@@ -4,8 +4,6 @@ import FreeSimpleGUI as sg
 class WindowManager:
     last_location = (None, None)
     window = None
-    student = None
-    teacher = None
 
     @classmethod
     def update(cls, new_layout, event_handler, size=(400, 100), r_loc=(0, 0)):
@@ -17,17 +15,9 @@ class WindowManager:
         cls.event_handler = event_handler
 
     @classmethod
-    def set_student(cls, student):
-        cls.student = student
-
-    @classmethod
-    def get_student(cls):
-        return cls.student
-
-    @classmethod
     def run(cls):
         from gui.Startpage import Startpage
-        cls.update(Startpage().get_layout(), Startpage().event_handler)
+        cls.update(Startpage.get_layout(), Startpage.event_handler)
         while True:
             event, values = cls.window.read()
             cls.last_location = cls.window.CurrentLocation()

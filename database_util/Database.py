@@ -46,9 +46,9 @@ class Database:
         return subjects
 
     @classmethod
-    def get_grades(cls):
+    def get_gradevalue(cls):
         cls.connect()
-        query = 'SELECT name FROM subject'
+        query = 'SELECT value FROM grade'
         cls.cursor.execute(query)
         grades = cls.cursor.fetchall()
         cls.close()
@@ -56,7 +56,7 @@ class Database:
 
     def get_teacher(cls, email):
         cls.connect()
-        query = 'SELECT fname, lname, email FROM teacher WHERE email = ?'
+        query = 'SELECT id, fname, lname, email FROM teacher WHERE email = ?'
         cls.cursor.execute(query, (email,))
         teacher = cls.cursor.fetchone()
         return teacher
@@ -64,7 +64,7 @@ class Database:
     @classmethod
     def get_student(cls, email):
         cls.connect()
-        query = 'SELECT fname, lname, email, class FROM student WHERE email = ?'
+        query = 'SELECT id, fname, lname, email, class FROM student WHERE email = ?'
         cls.cursor.execute(query, (email,))
         student = cls.cursor.fetchone()
         return student

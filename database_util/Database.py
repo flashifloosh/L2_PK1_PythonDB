@@ -4,9 +4,10 @@ import sys
 
 
 class Database:
+    cursor = None
+    conn = None
+
     def __init__(self):
-        self.cursor = None
-        self.conn = None
         self.create_db()
 
     @classmethod
@@ -62,6 +63,7 @@ class Database:
         cls.close()
         return grades
 
+    @classmethod
     def get_teacher(cls, email):
         cls.connect()
         query = 'SELECT id, fname, lname, email FROM teacher WHERE email = ?'

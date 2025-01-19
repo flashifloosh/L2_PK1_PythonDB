@@ -1,6 +1,5 @@
 from database_util.StudentUtil import StudentUtil
 from gui.WindowManager import WindowManager
-from database_util.Database import Database
 from images.ImageUtil import ImageUtil
 
 import FreeSimpleGUI as sg

@@ -1,11 +1,13 @@
 import FreeSimpleGUI as sg
+
+from gui.LoginManager import LoginManager
 from gui.WindowManager import WindowManager
 
 
 class StudentStartpage:
     @classmethod
     def get_layout(cls):
-        student = WindowManager.get_student()
+        student = LoginManager.get_student()
         return [
             [
                 sg.Button("Abmelden", key='logout', image_subsample=30,
@@ -23,7 +25,7 @@ class StudentStartpage:
         if event == 'logout':
             from gui.Startpage import Startpage
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
-            WindowManager.set_student(None)
+            LoginManager.set_student(None)
         elif event == 'grades':
             from gui.student.CertificatePage import CertificatePage
             WindowManager.update(CertificatePage().get_layout(), CertificatePage.event_handler, size=(400, 300))

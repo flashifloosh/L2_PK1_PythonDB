@@ -1,5 +1,6 @@
 import os.path
 import sqlite3 as db
+import sys
 
 
 class Database:
@@ -12,7 +13,14 @@ class Database:
     def create_db(cls):
         if not os.path.exists('./data.db'):
             cls.connect()
-            file = os.path.join(os.path.dirname(__file__), 'script.sql')
+            # Get the absolute path to the script.sql file
+            if hasattr(sys, '_MEIPASS'):
+                base_path = sys._MEIPASS
+            else:
+                base_path = os.path.dirname(os.path.abspath(__file__))
+            file = os.path.join(base_path, 'database_util', 'script.sql')
+            if not os.path.exists(file):
+                file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'script.sql')
             with open(file, 'r') as f:
                 cls.cursor.executescript(f.read())
                 cls.conn.commit()

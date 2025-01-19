@@ -4,7 +4,7 @@ from gui.WindowManager import WindowManager
 from images.ImageUtil import ImageUtil
 
 
-class StudentPreLogin:
+class TeacherPreLogin:
 
     @classmethod
     def get_layout(cls):
@@ -12,7 +12,7 @@ class StudentPreLogin:
             [
                 sg.Button(key='back', image_filename=ImageUtil.get_back_image(), image_subsample=30, border_width=0,
                           button_color=('white', sg.theme_background_color())),
-                sg.Text('Schüler', size=(30, 1), font=('Helvetica', 15), text_color='black')
+                sg.Text('Lehrer', size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
                 sg.Button('Registrieren', key='register', size=(10, 1)),
@@ -26,8 +26,8 @@ class StudentPreLogin:
             from gui.Startpage import Startpage
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
         elif event == 'register':
-            from gui.student.StudentRegister import StudentRegister
-            WindowManager.update(StudentRegister().get_layout(), StudentRegister.event_handler, size=(400, 225))
+            from gui.teacher.TeacherRegister import TeacherRegister
+            WindowManager.update(TeacherRegister().get_layout(), TeacherRegister.event_handler, size=(400, 225))
         elif event == 'login':
-            from gui.student.StudentLogin import StudentLogin
-            WindowManager.update(StudentLogin.get_layout(), StudentLogin.event_handler, size=(400, 150))
+            from gui.teacher.TeacherLogin import TeacherLogin
+            WindowManager.update(TeacherLogin.get_layout(), TeacherLogin.event_handler, size=(400, 150))

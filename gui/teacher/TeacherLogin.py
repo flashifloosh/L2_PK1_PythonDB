@@ -1,4 +1,4 @@
-from database_util.StudentUtil import StudentUtil
+from database_util.TeacherUtil import TeacherUtil
 from gui.WindowManager import WindowManager
 from database_util.Database import Database
 from images.ImageUtil import ImageUtil
@@ -6,7 +6,7 @@ from images.ImageUtil import ImageUtil
 import FreeSimpleGUI as sg
 
 
-class StudentLogin:
+class TeacherLogin:
 
     @classmethod
     def get_layout(cls):
@@ -14,7 +14,7 @@ class StudentLogin:
             [
                 sg.Button(key='back', image_filename=ImageUtil.get_back_image(), image_subsample=30, border_width=0,
                           button_color=('white', sg.theme_background_color())),
-                sg.Text('Schüler Anmeldung', size=(30, 1), font=('Helvetica', 15), text_color='black')
+                sg.Text('Lehrer Anmeldung', size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
                 sg.Text('E-Mail:', size=(15, 1)),
@@ -32,14 +32,14 @@ class StudentLogin:
     @staticmethod
     def event_handler(event, values):
         if event == 'back':
-            from gui.student.StudentPreLogin import StudentPreLogin
-            WindowManager.update(StudentPreLogin().get_layout(), StudentPreLogin.event_handler)
+            from gui.teacher.TeacherPreLogin import TeacherPreLogin
+            WindowManager.update(TeacherPreLogin().get_layout(), TeacherPreLogin.event_handler)
         elif event == 'login':
             try:
-                StudentUtil.student_login(values['email'], values['password'])
-                from gui.student.StudentStartpage import StudentStartpage
+                TeacherUtil.teacher_login(values['email'], values['password'])
+                from gui.teacher.TeacherStartpage import TeacherStartpage
                 WindowManager.update(
-                    StudentStartpage().get_layout(),
-                    StudentStartpage.event_handler)
+                    TeacherStartpage().get_layout(),
+                    TeacherStartpage.event_handler)
             except Exception as e:
                 sg.popup_ok(e, location=WindowManager.last_location, no_titlebar=True, keep_on_top=True, modal=True)

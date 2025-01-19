@@ -1,22 +1,20 @@
 from database_util.Database import Database
-from database_util.StudentUtil import StudentUtil
+from database_util.TeacherUtil import TeacherUtil
 from gui.WindowManager import WindowManager
 from images.ImageUtil import ImageUtil
-
 
 import FreeSimpleGUI as sg
 
 
-class StudentRegister:
+class TeacherRegister:
 
     @staticmethod
     def get_layout():
-        schoolclasses = [row[0] for row in Database.get_schoolclasses()]
         return [
             [
                 sg.Button(key='back', image_filename=ImageUtil.get_back_image(), image_subsample=30, border_width=0,
                           button_color=('white', sg.theme_background_color())),
-                sg.Text('Schüler Registrierung', size=(30, 1), font=('Helvetica', 15), text_color='black')
+                sg.Text('Lehrer Registrierung', size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
                 sg.Text('Vorname:', size=(15, 1)),
@@ -39,8 +37,8 @@ class StudentRegister:
                 sg.InputText(key='confirm_password', password_char='*', size=(15, 1))
             ],
             [
-                sg.Text('Klasse:', size=(20, 1), ),
-                sg.Combo(schoolclasses, key='schoolclass', s=(13, 1), readonly=True)
+                sg.Text('Verifizierungs-Code:', size=(20, 1), ),
+                sg.InputText(key='verify', s=(15, 1))
             ],
             [
                 sg.Button('Registrieren', key='register', size=(10, 1))
@@ -50,18 +48,18 @@ class StudentRegister:
     @staticmethod
     def event_handler(event, values):
         if event == 'back':
-            from gui.student.StudentPreLogin import StudentPreLogin
-            WindowManager.update(StudentPreLogin().get_layout(), StudentPreLogin.event_handler)
+            from gui.teacher.TeacherPreLogin import TeacherPreLogin
+            WindowManager.update(TeacherPreLogin().get_layout(), TeacherPreLogin.event_handler)
         elif event == 'register':
             if values['password'] == values['confirm_password']:
                 try:
-                    StudentUtil.student_register(values['first_name'], values['last_name'], values['email'],
+                    TeacherUtil.teacher_register(values['first_name'], values['last_name'], values['email'],
                                                  values['password'],
-                                                 f'{values['schoolclass']}')
-                    from gui.student.StudentPreLogin import StudentPreLogin
-                    WindowManager.update(StudentPreLogin.get_layout(), StudentPreLogin.event_handler)
-                    sg.popup_ok('Registrierung erfolgreich', location=WindowManager.last_location, keep_on_top=True, modal=True, no_titlebar=True)
+                                                 values['verify'])
+                    from gui.teacher.TeacherPreLogin import TeacherPreLogin
+                    WindowManager.update(TeacherPreLogin().get_layout(), TeacherPreLogin.event_handler)
+                    sg.popup_ok('Registrierung erfolgreich', location=WindowManager.last_location, no_titlebar=True, keep_on_top=True, modal=True)
                 except Exception as e:
-                    sg.popup_ok(e, location=WindowManager.last_location, keep_on_top=True, modal=True , no_titlebar=True)
+                    sg.popup_ok(e, location=WindowManager.last_location, no_titlebar=True, keep_on_top=True, modal=True)
             else:
                 sg.popup_ok('Die Passwörter stimmen nicht überein.')

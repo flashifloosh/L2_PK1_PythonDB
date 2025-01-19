@@ -34,7 +34,7 @@ fname TEXT,
 lname TEXT,
 email TEXT,
 secret TEXT,
-verfication_code VARCHAR(6)
+verify VARCHAR(6)
 );
 
 

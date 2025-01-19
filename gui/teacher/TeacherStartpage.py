@@ -4,15 +4,15 @@ from gui.LoginManager import LoginManager
 from gui.WindowManager import WindowManager
 
 
-class StudentStartpage:
+class TeacherStartpage:
     @classmethod
     def get_layout(cls):
-        teacher = LoginManager.get_teacher()
+        student = LoginManager.get_student()
         return [
             [
                 sg.Button("Abmelden", key='logout', image_subsample=30,
                           border_width=0, size=(8, 1)),
-                sg.Text(f'Hallo {teacher[0]}', size=(30, 1), font=('Helvetica', 15), text_color='black')
+                sg.Text(f'Hallo {student[0]}', size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
                 sg.Button('Noten', key='grades', size=(10, 2))

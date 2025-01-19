@@ -1,6 +1,7 @@
 import FreeSimpleGUI as sg
 
 from gui.student.StudentPreLogin import StudentPreLogin
+from gui.teacher.TeacherPreLogin import TeacherPreLogin
 from gui.WindowManager import WindowManager
 
 
@@ -23,4 +24,4 @@ class Startpage:
         if event == 'student':
             WindowManager.update(StudentPreLogin().get_layout(), StudentPreLogin.event_handler)
         elif event == 'teacher':
-            print('Teacher button clicked')
+            WindowManager.update(TeacherPreLogin().get_layout(), TeacherPreLogin.event_handler)

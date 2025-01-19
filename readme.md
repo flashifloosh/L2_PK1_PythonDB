@@ -31,4 +31,4 @@ Im folgenden Text bekommt ihr einen Überblick, über die Funktionen unseres Pro
 `schule.db`
 
 
-> see [script.sql](https://github.com/flashifloosh/L2_PK1_PythonDB/blob/main/script.sql) for more information
+> see [script.sql](https://github.com/flashifloosh/L2_PK1_PythonDB/blob/main/database_util/script.sql) for more information

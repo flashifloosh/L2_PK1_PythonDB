@@ -2,6 +2,7 @@
 class LoginManager:
     teacher = None
     student = None
+    class_selection = None
 
     @classmethod
     def set_student(cls, student):
@@ -18,3 +19,11 @@ class LoginManager:
     @classmethod
     def get_teacher(cls):
         return cls.teacher
+
+    @classmethod
+    def get_class(cls):
+        return cls.class_selection
+
+    @classmethod
+    def set_class(cls, schoolclass):
+        cls.class_selection = schoolclass

@@ -43,7 +43,7 @@ class Database:
         cls.cursor.execute(query)
         classes = cls.cursor.fetchall()
         cls.close()
-        return classes
+        return list(classes)
 
     @classmethod
     def get_subjects(cls):
@@ -52,10 +52,10 @@ class Database:
         cls.cursor.execute(query)
         subjects = cls.cursor.fetchall()
         cls.close()
-        return subjects
+        return list(subjects)
 
     @classmethod
-    def get_gradevalue(cls):
+    def get_grades(cls):
         cls.connect()
         query = 'SELECT value FROM grade'
         cls.cursor.execute(query)
@@ -78,3 +78,29 @@ class Database:
         cls.cursor.execute(query, (email,))
         student = cls.cursor.fetchone()
         return student
+
+    @classmethod
+    def get_students(cls, schoolclass):
+        cls.connect()
+        query = 'SELECT fname, lname, email, class FROM student WHERE class = ?'
+        cls.cursor.execute(query, (schoolclass,))
+        students = cls.cursor.fetchall()
+        cls.close()
+        return students
+
+    @classmethod
+    def delete_student(cls, email):
+        cls.connect()
+        # Retrieve the student's ID based on their email
+        query = 'SELECT id FROM student WHERE email = ?'
+        cls.cursor.execute(query, (email,))
+        student_id = cls.cursor.fetchone()
+
+        if student_id:
+            student_id = student_id[0]
+            # Delete certificates associated with the student if exists
+            cls.cursor.execute('DELETE FROM certificate WHERE student = ?', (student_id,))
+            # Delete the student record
+            cls.cursor.execute('DELETE FROM student WHERE id = ?', (student_id,))
+            cls.conn.commit()
+        cls.close()

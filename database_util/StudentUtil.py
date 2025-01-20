@@ -15,6 +15,9 @@ class StudentUtil:
         elif fname == '' or lname == '' or email == '' or password == '' or schoolclass == '':
             Database.close()
             raise Exception("Bitte füllen Sie alle Felder aus")
+        elif '@' not in email or '.' not in email:
+            Database.close()
+            raise Exception("Bitte geben Sie eine gültige E-Mail Adresse ein")
         elif len(password) < 8:
             Database.close()
             raise Exception("Das Passwort muss mindestens 8 Zeichen lang sein")
@@ -28,11 +31,24 @@ class StudentUtil:
     def student_login(cls, email, password):
         Database.connect()
         hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        query = 'SELECT id, fname, lname, email, class FROM student WHERE email = ? AND secret = ?'
+        query = 'SELECT fname, lname, email, class FROM student WHERE email = ? AND secret = ?'
         Database.cursor.execute(query, (email, hashed_pw))
         student = Database.cursor.fetchone()
         if student is None:
             Database.close()
             raise Exception("E-Mail oder Passwort falsch")
         LoginManager.set_student(student)
+        Database.close()
+
+    @classmethod
+    def student_cert(cls, email):
+        Database.connect()
+        query = 'SELECT id FROM student WHERE email = ?'
+        Database.cursor.execute(query, (email,))
+        student = Database.cursor.fetchone()
+        if student:
+            query = 'SELECT * FROM certificate WHERE student = ?'
+            Database.cursor.execute(query, (student[0],))
+            cert = Database.cursor.fetchall()
+            return cert
         Database.close()

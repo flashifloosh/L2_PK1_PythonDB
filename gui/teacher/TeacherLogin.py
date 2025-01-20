@@ -37,9 +37,9 @@ class TeacherLogin:
         elif event == 'login':
             try:
                 TeacherUtil.teacher_login(values['email'], values['password'])
-                from gui.teacher.TeacherStartpage import TeacherStartpage
+                from gui.teacher.TeacherClassSelection import TeacherClassSelection
                 WindowManager.update(
-                    TeacherStartpage().get_layout(),
-                    TeacherStartpage.event_handler)
+                    TeacherClassSelection().get_layout(),
+                    TeacherClassSelection.event_handler, size=(400, 300))
             except Exception as e:
                 sg.popup_ok(e, location=WindowManager.last_location, no_titlebar=True, keep_on_top=True, modal=True)

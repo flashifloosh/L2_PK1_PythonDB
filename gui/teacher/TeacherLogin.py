@@ -1,13 +1,13 @@
+import FreeSimpleGUI as sg
+
 from database_util.TeacherUtil import TeacherUtil
 from gui.WindowManager import WindowManager
-from database_util.Database import Database
 from images.ImageUtil import ImageUtil
-
-import FreeSimpleGUI as sg
 
 
 class TeacherLogin:
 
+    # Die grafische Oberfläche für den Lehrerlogin wird generiert
     @classmethod
     def get_layout(cls):
         return [
@@ -29,6 +29,9 @@ class TeacherLogin:
             ]
         ]
 
+    # Die Aktionen der Buttons wird definiert.
+    # Beim zurück Button wird der PreLogin geladen.
+    # Beim login wird geschaut, ob alle Daten korrekt sind und dann wird der Lehrer weitergeleitet an die Klassenselektion.
     @staticmethod
     def event_handler(event, values):
         if event == 'back':

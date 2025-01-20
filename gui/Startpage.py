@@ -1,12 +1,13 @@
 import FreeSimpleGUI as sg
 
+from gui.WindowManager import WindowManager
 from gui.student.StudentPreLogin import StudentPreLogin
 from gui.teacher.TeacherPreLogin import TeacherPreLogin
-from gui.WindowManager import WindowManager
 
 
 class Startpage:
 
+    # Die grafische Oberfläche für die Startpage wird generiert.
     @classmethod
     def get_layout(cls):
         return [
@@ -19,6 +20,9 @@ class Startpage:
             ]
         ]
 
+    # Die Aktionen der Buttons wird definiert.
+    # Beim student-Button wird man an die StudentPreLogin weitergeleitet. (Neues Fenster öffnet sich)
+    # dasselbe gilt für den teacher-Button, equivalent wird er an TeacherPreLogin weitergeleitet. (Neues Fenster öffnet sich)
     @staticmethod
     def event_handler(event, values):
         if event == 'student':

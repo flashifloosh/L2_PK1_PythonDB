@@ -1,13 +1,13 @@
-from database_util.Database import Database
+import FreeSimpleGUI as sg
+
 from database_util.TeacherUtil import TeacherUtil
 from gui.WindowManager import WindowManager
 from images.ImageUtil import ImageUtil
 
-import FreeSimpleGUI as sg
-
 
 class TeacherRegister:
 
+    # Die grafische Oberfläche für die Lehrerregistrierung wird generiert.
     @staticmethod
     def get_layout():
         return [
@@ -45,6 +45,11 @@ class TeacherRegister:
             ]
         ]
 
+    # Die Aktionen der Buttons wird definiert.
+    # Beim zurück Button wird der TeacherPreLogin geladen.
+    # Beim Registrieren wird zunächst überprüft, ob das Passwort und das abzugleichende Passwort identisch sind. Wenn nicht, bekommt man einen Fehler.
+    # Insofern die Passwörter übereinstimmen wird noch überprüft, ob alle Felder schon ausgefüllt sind und ob der richtige Verifizierungscode angegeben wurde,
+    # beim korrekten Ausfüllen wird der TeacherPreLogin geladen und ein Popup kommt als Rückmeldung. Ansonsten wird man nicht weitergeleitet.
     @staticmethod
     def event_handler(event, values):
         if event == 'back':

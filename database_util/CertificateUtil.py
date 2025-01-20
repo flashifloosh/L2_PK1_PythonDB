@@ -3,6 +3,7 @@ from Database import Database
 
 class CertificateUtil:
 
+    # Zusammenstellung des Zertifikats aus Note und Fachname. gibt dann für einen Schüler eine Liste aus, die aus allen Noten besteht.
     @classmethod
     def get_cert(cls, student):
         Database.connect()

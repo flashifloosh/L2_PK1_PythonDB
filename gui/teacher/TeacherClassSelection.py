@@ -6,6 +6,8 @@ from gui.WindowManager import WindowManager
 
 
 class TeacherClassSelection:
+
+    # Generierung der grafischen Oberfläche für die Klassenselektion insofern die Anmeldung erfolgreich war.
     @classmethod
     def get_layout(cls):
         user = LoginManager.get_teacher()
@@ -18,6 +20,7 @@ class TeacherClassSelection:
             cls.generate_class_buttons()
         ]
 
+    # der event_handler wird angepasst, sodass er die neue Konfiguration laden kann.
     @staticmethod
     def event_handler(event, values):
         if event == 'logout':
@@ -30,6 +33,8 @@ class TeacherClassSelection:
             WindowManager.update(TeacherStudentSelection().get_layout(event), TeacherStudentSelection.event_handler,
                                  size=(400, 300))
 
+    # Definition der Buttons.
+    # Alle Klassen der Schule werden in einem Kachelmuster aufgelistet und als Buttons gelisted.
     @classmethod
     def generate_class_buttons(cls):
         classes = Database.get_schoolclasses()

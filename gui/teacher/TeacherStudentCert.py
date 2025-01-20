@@ -107,7 +107,3 @@ class TeacherStudentCert:
                            sg.Combo(grades, default_value=grade, key=f'{subject}_grade', size=(10, 1), readonly=True)])
 
         return layout
-
-
-# Run the application
-WindowManager.run()

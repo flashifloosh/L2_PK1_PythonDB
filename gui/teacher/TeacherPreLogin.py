@@ -21,6 +21,10 @@ class TeacherPreLogin:
             ]
         ]
 
+    # Die Aktionen der Buttons wird definiert.
+    # Beim zurück Button wird die Startpage geladen.
+    # Beim Registrieren wird der Lehrer an die entsprechende grafische Oberfläche weitergeleitet.
+    # Wohingegen der Login Button zum TeacherLogin weiterleitet.
     @staticmethod
     def event_handler(event, values):
         if event == 'back':
@@ -28,7 +32,7 @@ class TeacherPreLogin:
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
         elif event == 'register':
             from gui.teacher.TeacherRegister import TeacherRegister
-            WindowManager.update(TeacherRegister().get_layout(), TeacherRegister.event_handler, size=(400, 225))
+            WindowManager.update(TeacherRegister().get_layout(), TeacherRegister.event_handler, size=(400, 230))
         elif event == 'login':
             from gui.teacher.TeacherLogin import TeacherLogin
             WindowManager.update(TeacherLogin.get_layout(), TeacherLogin.event_handler, size=(400, 150))

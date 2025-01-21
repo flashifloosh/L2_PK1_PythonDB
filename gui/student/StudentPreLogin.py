@@ -11,7 +11,7 @@ class StudentPreLogin:
         return [
             [
                 sg.Button(key='back', image_filename=ImageUtil.get_back_image(), image_subsample=30, border_width=0,
-                          button_color=('white', sg.theme_background_color())),
+                          button_color=('white', sg.theme_background_color()), ),
                 sg.Text('Schüler', size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
@@ -27,7 +27,7 @@ class StudentPreLogin:
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
         elif event == 'register':
             from gui.student.StudentRegister import StudentRegister
-            WindowManager.update(StudentRegister().get_layout(), StudentRegister.event_handler, size=(400, 225))
+            WindowManager.update(StudentRegister().get_layout(), StudentRegister.event_handler, size=(400, 230))
         elif event == 'login':
             from gui.student.StudentLogin import StudentLogin
             WindowManager.update(StudentLogin.get_layout(), StudentLogin.event_handler, size=(400, 150))

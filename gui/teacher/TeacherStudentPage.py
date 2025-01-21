@@ -16,7 +16,7 @@ class TeacherStudentPage:
                           border_width=0, size=(8, 1)),
                 sg.Button(key='back', image_filename=ImageUtil.get_back_image(), image_subsample=30, border_width=0,
                           button_color=('white', sg.theme_background_color())),
-                sg.Text(f'Schüler: {student[1]}, {student[0]}', size=(20, 1), font=('Helvetica', 15),
+                sg.Text(f'Schüler: {student[2]}, {student[1]}', size=(20, 1), font=('Helvetica', 15),
                         text_color='black')
             ],
             [
@@ -28,8 +28,8 @@ class TeacherStudentPage:
             ]
         ]
 
-    @staticmethod
-    def event_handler(event, values):
+    @classmethod
+    def event_handler(cls, event, values):
         if event == 'logout':
             from gui.Startpage import Startpage
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
@@ -45,11 +45,7 @@ class TeacherStudentPage:
                                        keep_on_top=True,
                                        modal=True, location=WindowManager.last_location, text_color='red')
             if response == 'Yes':
-                Database.delete_student(LoginManager.get_student()[2])
-                from gui.teacher.TeacherStudentSelection import TeacherStudentSelection
-                WindowManager.update(TeacherStudentSelection().get_layout(LoginManager.get_class()),
-                                     TeacherStudentSelection.event_handler, size=(400, 300))
-                LoginManager.set_student(None)
+                cls.delete_student(LoginManager.get_student())
         elif event == 'cert':
             from gui.teacher.TeacherStudentCert import TeacherStudentCert
             WindowManager.update(TeacherStudentCert.get_layout(LoginManager.get_student()),
@@ -57,10 +53,16 @@ class TeacherStudentPage:
 
     @classmethod
     def generate_student_info(cls, student):
-        student = Database.get_student(student[2])
+        student = Database.get_student(student[3])
         return [
-            [sg.Text('Vorname:'), sg.Text(f'{student[1]}')],
-            [sg.Text('Nachname:'), sg.Text(f'{student[2]}')],
             [sg.Text('Klasse:'), sg.Text(f'{student[4]}')],
             [sg.Text('E-Mail:'), sg.Text(f'{student[3]}')],
         ]
+
+    @classmethod
+    def delete_student(cls, student):
+        Database.delete_student(student[3])
+        from gui.teacher.TeacherStudentSelection import TeacherStudentSelection
+        WindowManager.update(TeacherStudentSelection().get_layout(LoginManager.get_class()),
+                             TeacherStudentSelection.event_handler, size=(400, 300))
+        LoginManager.set_student(None)

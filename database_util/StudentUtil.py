@@ -1,6 +1,6 @@
-from database_util.Database import Database
 import hashlib
 
+from database_util.Database import Database
 from gui.LoginManager import LoginManager
 
 
@@ -31,7 +31,7 @@ class StudentUtil:
     def student_login(cls, email, password):
         Database.connect()
         hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        query = 'SELECT fname, lname, email, class FROM student WHERE email = ? AND secret = ?'
+        query = 'SELECT id, fname, lname, email, class FROM student WHERE email = ? AND secret = ?'
         Database.cursor.execute(query, (email, hashed_pw))
         student = Database.cursor.fetchone()
         if student is None:

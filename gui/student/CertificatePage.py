@@ -1,5 +1,6 @@
 import FreeSimpleGUI as sg
 
+from database_util.StudentUtil import StudentUtil
 from gui.WindowManager import WindowManager
 
 
@@ -14,8 +15,7 @@ class CertificatePage:
                 sg.Text(size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
-                sg.Table(values=[['1.0', '2.0', '1.3']],
-                         headings=['Deutsch', 'Mathe', 'Englisch'])
+
             ],
             [
                 sg.Button('Drucken', key='print', size=(10, 1)),
@@ -32,3 +32,10 @@ class CertificatePage:
             print('print button clicked')
         elif event == 'export':
             print('export button clicked')
+
+    @classmethod
+    def generate_cert_table(cls, student):
+        cert = StudentUtil.student_cert(student[0])
+        layout = []
+        # heading are the subjects
+        headings = for i in range(1, len(cert[0])):

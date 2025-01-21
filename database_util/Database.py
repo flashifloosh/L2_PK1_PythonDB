@@ -55,7 +55,7 @@ class Database:
     @classmethod
     def get_subjects(cls):
         cls.connect()
-        query = 'SELECT name FROM subject'
+        query = 'SELECT id, name FROM subject'
         cls.cursor.execute(query)
         subjects = cls.cursor.fetchall()
         cls.close()
@@ -65,7 +65,7 @@ class Database:
     @classmethod
     def get_grades(cls):
         cls.connect()
-        query = 'SELECT value FROM grade'
+        query = 'SELECT value, description FROM grade'
         cls.cursor.execute(query)
         grades = cls.cursor.fetchall()
         cls.close()

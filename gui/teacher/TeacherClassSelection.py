@@ -15,7 +15,7 @@ class TeacherClassSelection:
             [
                 sg.Button("Abmelden", key='logout', image_subsample=30,
                           border_width=0, size=(8, 1)),
-                sg.Text(f'Hallo {user[0]}', size=(30, 1), font=('Helvetica', 15), text_color='black')
+                sg.Text(f'Hallo {user[2]}, {user[1]}', size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             cls.generate_class_buttons()
         ]

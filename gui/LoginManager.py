@@ -1,4 +1,6 @@
-
+# Getter und Setter für Lehrer und Schüler definiert als auch für die Klassenselektion.
+# Setter wird auch für den Zwischenspeicher genutzt, um redundanz zu schaffen und die Anzahl an Variablen zu minimieren.
+# Häufige Methoden, um Zeilen an Code zu sparen separiert deklariert
 class LoginManager:
     teacher = None
     student = None

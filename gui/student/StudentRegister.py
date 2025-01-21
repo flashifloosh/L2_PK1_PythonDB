@@ -60,7 +60,7 @@ class StudentRegister:
                                                  f'{values['schoolclass']}')
                     from gui.student.StudentPreLogin import StudentPreLogin
                     WindowManager.update(StudentPreLogin.get_layout(), StudentPreLogin.event_handler)
-                    sg.popup_ok('Registrierung erfolgreich', location=WindowManager.last_location, keep_on_top=True, modal=True, no_titlebar=True)
+                    sg.popup_quick_message('Registrierung erfolgreich', location=WindowManager.last_location)
                 except Exception as e:
                     sg.popup_ok(e, location=WindowManager.last_location, keep_on_top=True, modal=True , no_titlebar=True)
             else:

@@ -1,4 +1,6 @@
+from database_util.Database import Database
 from database_util.StudentUtil import StudentUtil
+from gui.LoginManager import LoginManager
 from gui.WindowManager import WindowManager
 from images.ImageUtil import ImageUtil
 

@@ -49,7 +49,7 @@ class TeacherStudentPage:
         elif event == 'cert':
             from gui.teacher.TeacherStudentCert import TeacherStudentCert
             WindowManager.update(TeacherStudentCert.get_layout(LoginManager.get_student()),
-                                 TeacherStudentCert.event_handler, size=(400, 300))
+                                 TeacherStudentCert.event_handler, size=(400, 310))
 
     @classmethod
     def generate_student_info(cls, student):

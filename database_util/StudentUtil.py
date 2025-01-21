@@ -7,6 +7,12 @@ from gui.LoginManager import LoginManager
 class StudentUtil:
     @classmethod
     def student_register(cls, fname, lname, email, password, schoolclass):
+        fname = fname.strip()
+        lname = lname.strip()
+        email = email.strip()
+        password = password.strip()
+        schoolclass = schoolclass.strip()
+
         Database.connect()
         query = 'SELECT email FROM student WHERE email = ?'
         if Database.cursor.execute(query, (email,)).fetchone():
@@ -30,9 +36,11 @@ class StudentUtil:
     @classmethod
     def student_login(cls, email, password):
         Database.connect()
+        stripped_email = email.strip()  # Remove leading and trailing whitespace
         hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
         query = 'SELECT id, fname, lname, email, class FROM student WHERE email = ? AND secret = ?'
-        Database.cursor.execute(query, (email, hashed_pw))
+        Database.cursor.execute(query, (stripped_email, hashed_pw))
+        print(stripped_email)
         student = Database.cursor.fetchone()
         if student is None:
             Database.close()

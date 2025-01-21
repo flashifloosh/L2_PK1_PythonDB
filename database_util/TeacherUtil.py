@@ -9,6 +9,12 @@ class TeacherUtil:
 
     @classmethod
     def teacher_register(cls, fname, lname, email, password, verification_code):
+        fname = fname.strip()
+        lname = lname.strip()
+        email = email.strip()
+        password = password.strip()
+        verification_code = verification_code.strip()
+
         Database.connect()
         query = 'SELECT email FROM teacher WHERE email = ?'
         if Database.cursor.execute(query, (email,)).fetchone():
@@ -35,6 +41,7 @@ class TeacherUtil:
     @classmethod
     def teacher_login(cls, email, password):
         Database.connect()
+        email = email.strip()  # Remove leading and trailing whitespace
         hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
         query = 'SELECT id, fname, lname, email FROM teacher WHERE email = ? AND secret = ?'
         Database.cursor.execute(query, (email, hashed_pw))
@@ -44,4 +51,13 @@ class TeacherUtil:
             raise Exception("E-Mail oder Passwort falsch")
         LoginManager.set_teacher(teacher)
         Database.close()
+
+    @classmethod
+    def get_student_grades(cls, student_id):
+        Database.connect()
+        query = 'SELECT subject, grade FROM certificate WHERE student = ?'
+        Database.cursor.execute(query, (student_id,))
+        grades = Database.cursor.fetchall()
+        Database.close()
+        return grades
 

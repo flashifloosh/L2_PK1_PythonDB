@@ -63,7 +63,7 @@ class TeacherRegister:
                                                  values['verify'])
                     from gui.teacher.TeacherPreLogin import TeacherPreLogin
                     WindowManager.update(TeacherPreLogin().get_layout(), TeacherPreLogin.event_handler)
-                    sg.popup_ok('Registrierung erfolgreich', location=WindowManager.last_location, no_titlebar=True, keep_on_top=True, modal=True)
+                    sg.popup_quick_message('Registrierung erfolgreich', location=WindowManager.last_location)
                 except Exception as e:
                     sg.popup_ok(e, location=WindowManager.last_location, no_titlebar=True, keep_on_top=True, modal=True)
             else:

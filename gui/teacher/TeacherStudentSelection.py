@@ -20,6 +20,9 @@ class TeacherStudentSelection:
                 sg.Text(f"Klasse {schoolclass}", size=(30, 1), font=('Helvetica', 15), text_color='black')
             ],
             [
+                sg.Text('Wählen Sie einen Schüler:', size=(20, 1))
+            ],
+            [
                 sg.Column(cls.generate_student_list(schoolclass))
             ],
             [
@@ -46,7 +49,7 @@ class TeacherStudentSelection:
     def generate_student_list(cls, schoolclass):
         students = Database.get_students(schoolclass)
         cls.student_email_map = {f"{s[1]}, {s[0]}": s[2] for s in students}
-        student_names = [f"{s[1]}, {s[0]}" for s in students]
+        student_names = sorted([f"{s[1]}, {s[0]}" for s in students])
         layout = [
             [sg.Listbox(values=student_names, size=(30, 10), key='student_list',
                         select_mode=sg.LISTBOX_SELECT_MODE_SINGLE)]

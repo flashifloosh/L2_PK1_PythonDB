@@ -86,7 +86,7 @@ class TeacherStudentCert:
     def generate_cert_table(cls, student):
         student_id = student[0]
         Database.connect()
-        query = 'SELECT subject, grade FROM certificate WHERE student = ?'
+        query = 'SELECT subject.name, certificate.grade FROM certificate JOIN subject ON certificate.subject = subject.id WHERE certificate.student = ?'
         Database.cursor.execute(query, (student_id,))
         certificates = Database.cursor.fetchall()
 

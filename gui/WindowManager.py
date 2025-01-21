@@ -1,6 +1,5 @@
 import FreeSimpleGUI as sg
 
-
 class WindowManager:
     last_location = (None, None)
     window = None

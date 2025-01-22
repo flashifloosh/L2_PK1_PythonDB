@@ -79,7 +79,7 @@ gleichen Fächer hat.
 Im folgenden Text erhalten Sie einen Überblick über die Funktionen unseres Produkts. Im Kern haben wir mehrere einzelne
 Fenster, die jeweils eine Funktion besitzen. Dazu gehören der CSV-Export und -Import. Unser Ziel hierbei ist es, dass
 Schüler ihre Noten als CSV-Datei herunterladen können. Lehrer hingegen sollen die Möglichkeit haben, eine Notenliste
-eines Schülers hochzuladen, wobei immer der Klassenlehrer gemeint ist.
+eines Schülers hochzuladen (wobei immer der Klassenlehrer gemeint ist).
 
 Unsere Datenbank basiert auf SQLite. Sie wird komplett über Code generiert und über die Importfunktion oder die
 Registrierung eines Benutzers befüllt. Die Registrierung spielt eine große Rolle, da sie benötigt wird, damit sich
@@ -109,7 +109,7 @@ einzelnen Buttons werden dann in der separaten Klasse des Fensters generiert und
 
 ## Datenbank
 
-`schule.db`
+`data.db`
 
 > siehe [script.sql](https://github.com/flashifloosh/L2_PK1_PythonDB/blob/main/database_util/script.sql) für weitere
 > Informationen

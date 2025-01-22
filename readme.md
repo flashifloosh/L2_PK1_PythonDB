@@ -7,8 +7,13 @@
 
 # Installation
 
+### Releases
+1. In [Releases](https://github.com/flashifloosh/L2_PK1_PythonDB/releases) die neuste Version herunterladen
+2. ZIP entpacken
+3. Schulverwaltungstool.exe ausführen
 
 
+### Source Code
 
 1. Code herunterladen (als ZIP oder mit git clone)
 2. Command Line öffnen im Ordner
@@ -17,6 +22,8 @@
 
 
 ---
+
+# Dokumentation
 
 ## Aufgabenstellung
 

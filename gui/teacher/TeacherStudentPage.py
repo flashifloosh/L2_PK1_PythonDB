@@ -1,33 +1,27 @@
 import FreeSimpleGUI as sg
 
-from database_util.Database import Database
+from database_util.TeacherUtil import TeacherUtil
 from gui.LoginManager import LoginManager
 from gui.WindowManager import WindowManager
-from images.ImageUtil import ImageUtil
 
 
 class TeacherStudentPage:
 
+    # Die grafische Oberfläche für die TeacherStudentCert wird generiert.
     @classmethod
     def get_layout(cls, student):
-        return [
-            [
-                sg.Button("Abmelden", key='logout', image_subsample=30,
-                          border_width=0, size=(8, 1)),
-                sg.Button(key='back', image_filename=ImageUtil.get_back_image(), image_subsample=30, border_width=0,
-                          button_color=('white', sg.theme_background_color())),
-                sg.Text(f'Schüler: {student[2]}, {student[1]}', size=(20, 1), font=('Helvetica', 15),
-                        text_color='black')
-            ],
-            [
-                sg.Column(cls.generate_student_info(student))
-            ],
-            [
-                sg.Button("Noten", key='cert', size=(10, 2)),
-                sg.Button("Schüler löschen", key='delete_student', size=(15, 2))
-            ]
-        ]
+        layout = TeacherUtil.generate_common_layout(student)
+        layout.append([
+            sg.Button("Noten", key='cert', size=(10, 2)),
+            sg.Button("Schüler löschen", key='delete_student', size=(15, 2))
+        ])
+        return layout
 
+    # Die Aktionen der Buttons wird definiert.
+    # Beim logout Button wird die Startpage geladen.
+    # Beim back Button, wird die TeacherStudentSelection geladen.
+    # Beim Löschen eines Benutzers bekommt man eine Sicherheitsabfrage. Insofern diese bestätigt wird, wird dieser gelöscht.
+    # Der vierte Button leitet einen weiter an TeacherStudentCert.
     @classmethod
     def event_handler(cls, event, values):
         if event == 'logout':
@@ -41,28 +35,13 @@ class TeacherStudentPage:
                                  TeacherStudentSelection.event_handler, size=(400, 300))
             LoginManager.set_student(None)
         elif event == 'delete_student':
-            response = sg.popup_yes_no('Möchten Sie den Schüler wirklich löschen?', title='Schüler löschen',
+            response = sg.popup_yes_no('Möchten Sie den Schüler wirklich löschen?',
                                        keep_on_top=True,
-                                       modal=True, location=WindowManager.last_location, text_color='red')
+                                       modal=True, location=WindowManager.last_location, text_color='white',
+                                       no_titlebar=True, background_color="red")
             if response == 'Yes':
-                cls.delete_student(LoginManager.get_student())
+                TeacherUtil.delete_student(LoginManager.get_student())
         elif event == 'cert':
             from gui.teacher.TeacherStudentCert import TeacherStudentCert
             WindowManager.update(TeacherStudentCert.get_layout(LoginManager.get_student()),
-                                 TeacherStudentCert.event_handler, size=(400, 310))
-
-    @classmethod
-    def generate_student_info(cls, student):
-        student = Database.get_student(student[3])
-        return [
-            [sg.Text('Klasse:'), sg.Text(f'{student[4]}')],
-            [sg.Text('E-Mail:'), sg.Text(f'{student[3]}')],
-        ]
-
-    @classmethod
-    def delete_student(cls, student):
-        Database.delete_student(student[3])
-        from gui.teacher.TeacherStudentSelection import TeacherStudentSelection
-        WindowManager.update(TeacherStudentSelection().get_layout(LoginManager.get_class()),
-                             TeacherStudentSelection.event_handler, size=(400, 300))
-        LoginManager.set_student(None)
+                                 TeacherStudentCert.event_handler, size=(400, 400))

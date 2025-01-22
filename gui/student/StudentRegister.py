@@ -1,14 +1,14 @@
+import FreeSimpleGUI as sg
+
 from database_util.Database import Database
 from database_util.StudentUtil import StudentUtil
 from gui.WindowManager import WindowManager
 from images.ImageUtil import ImageUtil
 
 
-import FreeSimpleGUI as sg
-
-
 class StudentRegister:
 
+    # Die grafische Oberfläche für die Schülerregstrierung wird generiert.
     @staticmethod
     def get_layout():
         schoolclasses = [row[0] for row in Database.get_schoolclasses()]
@@ -47,6 +47,11 @@ class StudentRegister:
             ]
         ]
 
+    # Die Aktionen der Buttons wird definiert.
+    # Beim zurück Button wird der StudentPreLogin geladen.
+    # Beim Registrieren wird zunächst überprüft, ob das Passwort und das abzugleichende Passwort identisch sind.
+    # Insofern die Passwörter übereinstimmen wird noch überprüft, ob alle Felder schon ausgefüllt sind.
+    # Beim korrekten Ausfüllen wird der StudentPreLogin geladen und ein Popup kommt als Rückmeldung.
     @staticmethod
     def event_handler(event, values):
         if event == 'back':
@@ -60,8 +65,8 @@ class StudentRegister:
                                                  f'{values['schoolclass']}')
                     from gui.student.StudentPreLogin import StudentPreLogin
                     WindowManager.update(StudentPreLogin.get_layout(), StudentPreLogin.event_handler)
-                    sg.popup_quick_message('Registrierung erfolgreich', location=WindowManager.last_location)
+                    WindowManager.popup_quick_message('Registrierung erfolgreich')
                 except Exception as e:
-                    sg.popup_ok(e, location=WindowManager.last_location, keep_on_top=True, modal=True , no_titlebar=True)
+                    sg.popup_ok(e, location=WindowManager.last_location, keep_on_top=True, modal=True, no_titlebar=True)
             else:
                 sg.popup_ok('Die Passwörter stimmen nicht überein.')

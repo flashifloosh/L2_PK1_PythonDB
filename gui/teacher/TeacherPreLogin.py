@@ -6,7 +6,7 @@ from images.ImageUtil import ImageUtil
 
 class TeacherPreLogin:
 
-    # Die grafische Oberfläche für den LehrerPreLogin wird generiert, bzw bereitgestellt.
+    # Die grafische Oberfläche für den TeacherPreLogin wird generiert, bzw bereitgestellt.
     @classmethod
     def get_layout(cls):
         return [

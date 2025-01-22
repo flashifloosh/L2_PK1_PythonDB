@@ -37,7 +37,7 @@ class TeacherRegister:
                 sg.InputText(key='confirm_password', password_char='*', size=(15, 1))
             ],
             [
-                sg.Text('Verifizierungs-Code:', size=(20, 1), ),
+                sg.Text('Verifizierungscode:', size=(20, 1), ),
                 sg.InputText(key='verify', s=(15, 1))
             ],
             [
@@ -47,9 +47,9 @@ class TeacherRegister:
 
     # Die Aktionen der Buttons wird definiert.
     # Beim zurück Button wird der TeacherPreLogin geladen.
-    # Beim Registrieren wird zunächst überprüft, ob das Passwort und das abzugleichende Passwort identisch sind. Wenn nicht, bekommt man einen Fehler.
+    # Beim Registrieren wird zunächst überprüft, ob das Passwort und das abzugleichende Passwort identisch sind.
     # Insofern die Passwörter übereinstimmen wird noch überprüft, ob alle Felder schon ausgefüllt sind und ob der richtige Verifizierungscode angegeben wurde,
-    # beim korrekten Ausfüllen wird der TeacherPreLogin geladen und ein Popup kommt als Rückmeldung. Ansonsten wird man nicht weitergeleitet.
+    # Beim korrekten Ausfüllen wird der TeacherPreLogin geladen und ein Popup kommt als Rückmeldung.
     @staticmethod
     def event_handler(event, values):
         if event == 'back':
@@ -63,7 +63,7 @@ class TeacherRegister:
                                                  values['verify'])
                     from gui.teacher.TeacherPreLogin import TeacherPreLogin
                     WindowManager.update(TeacherPreLogin().get_layout(), TeacherPreLogin.event_handler)
-                    sg.popup_quick_message('Registrierung erfolgreich', location=WindowManager.last_location)
+                    WindowManager.popup_quick_message('Registrierung erfolgreich')
                 except Exception as e:
                     sg.popup_ok(e, location=WindowManager.last_location, no_titlebar=True, keep_on_top=True, modal=True)
             else:

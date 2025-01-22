@@ -9,6 +9,7 @@ from images.ImageUtil import ImageUtil
 class TeacherStudentSelection:
     student_email_map = {}
 
+    # Die grafische Oberfläche für die TeacherStudentSelection wird generiert.
     @classmethod
     def get_layout(cls, schoolclass):
         return [
@@ -30,6 +31,10 @@ class TeacherStudentSelection:
             ]
         ]
 
+    # Die Aktionen der Buttons wird definiert.
+    # Beim logout Button wird die Startpage geladen.
+    # Der back button bringt einen auf die TeacherClassSelection zurück.
+    # Insofern man sich den Schüler anschaut, sieht man die Daten des Schülers.
     @classmethod
     def event_handler(cls, event, values):
         if event == 'logout':
@@ -45,6 +50,8 @@ class TeacherStudentSelection:
         elif event == 'show':
             cls.selected_student(values)
 
+    # Legt das DropDown Menü an, sodass der Lehrer alle Schüler einer Klasse aufgelistet bekommt.
+    # Dafür muss eine Klasse ausgewählt worden sein, damit diese dann abgefragt werden kann.
     @classmethod
     def generate_student_list(cls, schoolclass):
         students = Database.get_students(schoolclass)
@@ -56,6 +63,7 @@ class TeacherStudentSelection:
         ]
         return layout
 
+    # Diese Methode ist dafür zuständig festzulegen welcher Schüler ausgewählt wurde um die entsprechenden Daten zu beziehen.
     @classmethod
     def selected_student(cls, values):
         selected_student = values['student_list'][0] if values['student_list'] else None

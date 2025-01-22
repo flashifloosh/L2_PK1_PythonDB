@@ -5,6 +5,7 @@ from gui.WindowManager import WindowManager
 
 
 class StudentStartpage:
+    # Legt das Layout fest für die StudentStartpage.
     @classmethod
     def get_layout(cls):
         user = LoginManager.get_student()
@@ -20,6 +21,8 @@ class StudentStartpage:
 
         ]
 
+    # Buttons werden definiert.
+    # Weiterleitung an Startpage oder an StudentCertificatePage, entsprechend dem Button.
     @staticmethod
     def event_handler(event, values):
         if event == 'logout':
@@ -27,7 +30,7 @@ class StudentStartpage:
             WindowManager.update(Startpage().get_layout(), Startpage.event_handler)
             LoginManager.set_student(None)
         elif event == 'grades':
-            from gui.student.CertificatePage import CertificatePage
-            WindowManager.update(CertificatePage().get_layout(), CertificatePage.event_handler, size=(600, 300  ))
+            from gui.student.StudentCertificatePage import StudentCertificatePage
+            WindowManager.update(StudentCertificatePage().get_layout(), StudentCertificatePage.event_handler, size=(600, 300))
         elif event == sg.WIN_CLOSED:
             pass

@@ -6,6 +6,7 @@ from images.ImageUtil import ImageUtil
 
 class StudentPreLogin:
 
+    # Die grafische Oberfläche für den StudentPreLogin wird generiert, bzw bereitgestellt.
     @classmethod
     def get_layout(cls):
         return [
@@ -20,6 +21,10 @@ class StudentPreLogin:
             ]
         ]
 
+    # Die Aktionen der Buttons wird definiert.
+    # Beim zurück Button wird die Startpage geladen.
+    # Beim Registrieren wird der Schüler an die entsprechende grafische Oberfläche weitergeleitet.
+    # Wohingegen der Login Button zum StudentLogin weiterleitet.
     @staticmethod
     def event_handler(event, values):
         if event == 'back':

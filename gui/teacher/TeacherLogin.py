@@ -31,7 +31,8 @@ class TeacherLogin:
 
     # Die Aktionen der Buttons wird definiert.
     # Beim zurück Button wird der PreLogin geladen.
-    # Beim login wird geschaut, ob alle Daten korrekt sind und dann wird der Lehrer weitergeleitet an die Klassenselektion.
+    # Beim login wird geschaut, ob alle Daten korrekt sind.
+    # Dann wird der Lehrer weitergeleitet an die Klassenselektion.
     @staticmethod
     def event_handler(event, values):
         if event == 'back':

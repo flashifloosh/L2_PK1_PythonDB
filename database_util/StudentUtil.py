@@ -5,6 +5,7 @@ from gui.LoginManager import LoginManager
 
 
 class StudentUtil:
+    # Daten werden gesammelt beim Schüler registrieren
     @classmethod
     def student_register(cls, fname, lname, email, password, schoolclass):
         fname = fname.strip()
@@ -13,6 +14,8 @@ class StudentUtil:
         password = password.strip()
         schoolclass = schoolclass.strip()
 
+        # Check, ob die Mail schon vergeben wurde oder ein Feld frei gelassen wurde.
+        # Überprüfung der korrektheit der Mail und der Länge des Passworts
         Database.connect()
         query = 'SELECT email FROM student WHERE email = ?'
         if Database.cursor.execute(query, (email,)).fetchone():
@@ -27,12 +30,18 @@ class StudentUtil:
         elif len(password) < 8:
             Database.close()
             raise Exception("Das Passwort muss mindestens 8 Zeichen lang sein")
+
+        # Das Passwort wird gehashed, sodass die Sicherheit gewährleistet wird.
+        # Der Benutzer mit den entsprechenden Daten wird in der Datenbank angelegt.
         hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
         query = 'INSERT INTO student (fname, lname, email, secret, class) VALUES (?, ?, ?, ?, ?)'
         Database.cursor.execute(query, (fname, lname, email, hashed_pw, schoolclass))
         Database.conn.commit()
         Database.close()
 
+    # Beim Schüler Login wird zuerst das Passwort gehashed und mit dem hash Wert der Datenbank verglichen.
+    # Es wird dann die Mail mit der Datenbank verglichen und der entsprechende Nutzer wird eingeloggt.
+    # Fehler bei falscher Mail oder Passwort.
     @classmethod
     def student_login(cls, email, password):
         Database.connect()
@@ -40,7 +49,6 @@ class StudentUtil:
         hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
         query = 'SELECT id, fname, lname, email, class FROM student WHERE email = ? AND secret = ?'
         Database.cursor.execute(query, (stripped_email, hashed_pw))
-        print(stripped_email)
         student = Database.cursor.fetchone()
         if student is None:
             Database.close()
@@ -48,6 +56,7 @@ class StudentUtil:
         LoginManager.set_student(student)
         Database.close()
 
+    # Gibt das gesamte Zeugnis eines Schülers aus, insofern dieser existiert
     @classmethod
     def student_cert(cls, email):
         Database.connect()
@@ -60,3 +69,5 @@ class StudentUtil:
             cert = Database.cursor.fetchall()
             return cert
         Database.close()
+
+

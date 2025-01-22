@@ -13,11 +13,13 @@ class Database:
 
     # Erstellt die Datenbank insofern sie noch nicht existiert, oder nicht im richtigen Verzeichnis ist.
     # Insofern der Pfad nicht existiert wird dieser ebenfalls angelegt.
+    # MEIPASS wird benötigt um die Datenbank in das richtige Verzeichnis zu legen.
     @classmethod
     def create_db(cls):
         if not os.path.exists('./data.db'):
             cls.connect()
-            # Get the absolute path to the script.sql file
+            # Erstellung der Datenbank
+            # MEIPASS wird benötigt um die Datenbank in das richtige Verzeichnis zu legen (temporäres Verzeichnis).
             if hasattr(sys, '_MEIPASS'):
                 base_path = sys._MEIPASS
             else:
@@ -25,7 +27,7 @@ class Database:
             file = os.path.join(base_path, 'database_util', 'script.sql')
             if not os.path.exists(file):
                 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'script.sql')
-            with open(file, 'r') as f:
+            with open(file, 'r', encoding='utf-8') as f:
                 cls.cursor.executescript(f.read())
                 cls.conn.commit()
             cls.close()
@@ -104,16 +106,16 @@ class Database:
     @classmethod
     def delete_student(cls, email):
         cls.connect()
-        # Retrieve the student's ID based on their email
+        # Bekomme die ID des Schülers
         query = 'SELECT id FROM student WHERE email = ?'
         cls.cursor.execute(query, (email,))
         student_id = cls.cursor.fetchone()
 
         if student_id:
             student_id = student_id[0]
-            # Delete certificates associated with the student if exists
+            # Lösche alle Zertifikate des Schülers, falls vorhanden
             cls.cursor.execute('DELETE FROM certificate WHERE student = ?', (student_id,))
-            # Delete the student record
+            # Lösche den Schüler
             cls.cursor.execute('DELETE FROM student WHERE id = ?', (student_id,))
             cls.conn.commit()
         cls.close()

@@ -40,7 +40,7 @@ zwar in verschiedenen Dateiformaten (JSON oder CSV).
 
 Wir haben uns entschieden, ein kleines Schulverwaltungstool zu entwickeln. Ziel ist es, Lehrern die Möglichkeit zu
 geben, die Noten der Schüler über eine grafische Oberfläche zu ändern. Dazu müssen sich Lehrer einmalig registrieren. Um
-das Projekt nicht zu komplex zu gestalten, kann nur ein Lehrer (der Klassenlehrer) pro Klasse die Noten eintragen.
+das Projekt nicht zu komplex zu gestalten, kann jeder Lehrer in jeder Klasse die Noten eintragen.
 
 Schüler sind nur in der Lage, ihre eigenen Noten einzusehen, aber nicht zu verändern, und diese herunterzuladen. Sowohl
 Lehrer als auch Schüler müssen sich anmelden, um Änderungen vorzunehmen oder Daten auszulesen.
